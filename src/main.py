@@ -87,7 +87,7 @@ class DataInput():
     
     @staticmethod
     def input_for_my_read_insert():
-        now = int(datetime.now().strftime('%Y'))
+        now = datetime.now().strftime('%Y-%m-%d')
         book_isbn = input('Enter the isbn of the book: ')
         reader_username = input('Enter your username: ')
         percentage_read = 1
