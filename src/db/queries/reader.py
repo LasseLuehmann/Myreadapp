@@ -20,3 +20,18 @@ def insert_data(username: str, title: str, first_name: str, last_name: str) -> t
         conn.commit()
         return reader
     
+def reader_has_done_at_least_one():
+    conn = Database()
+
+    query = """
+        SELECT DISTINCT COUNT(*) 
+        FROM project.my_read AS m
+        JOIN project.status_percent AS s
+            ON m.percentage_read <@ s.percentage_read_range
+        WHERE s.read_status = 'done';
+    """
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        reader = cursor.fetchone()
+        return reader

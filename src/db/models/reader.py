@@ -13,3 +13,8 @@ class Reader:
         reader: tuple[str] = reader_queries.insert_data(username, title, first_name, last_name)
 
         return cls(*reader) if reader else None
+    
+    @staticmethod
+    def reader_has_done_at_least_one():
+        reader = reader_queries.reader_has_done_at_least_one()
+        return reader

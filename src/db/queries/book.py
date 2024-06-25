@@ -14,4 +14,47 @@ def list_title_by_format_and_reader_title(format_: str, title: str):
         cursor.execute(query, (title, format_))
         list = cursor.fetchall()
         return list
+
+def amount_of_books():
+    conn = Database()
+
+    query = """
+        SELECT COUNT(*) FROM project.book;
+    """
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        amount = cursor.fetchone()
+        return amount
     
+def amount_of_books_per_category():
+    conn = Database()
+
+    query = """
+        SELECT COUNT(*), category
+        FROM project.book
+        GROUP BY category;
+    """
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        amount = cursor.fetchall()
+        return amount
+    
+def amount_of_books_per_read_status():
+    conn = Database()
+
+    query = """
+        SELECT COUNT(b.*),s.read_status
+        FROM project.book AS b
+        JOIN project.my_read AS m
+            ON b.isbn = m.book_isbn
+        JOIN project.status_percent AS s
+            ON m.percentage_read <@ s.percentage_read_range
+        GROUP BY s.read_status;
+    """
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        amount = cursor.fetchall()
+        return amount

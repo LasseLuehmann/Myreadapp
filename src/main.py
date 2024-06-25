@@ -115,13 +115,25 @@ def main():
                     input('\nEnter to continue')
 
                 elif option == 2:
-                    pass
+                    result = Book.amount_of_books()
+                    print(f'\nThere are {result[0]} books available.')
+                    input('\nEnter to continue')
                 elif option == 3:
-                    pass
+                    result = Reader.reader_has_done_at_least_one()
+                    print(f'{result[0]} readers had read at least one book completily.')
+                    input('\nEnter to continue')
                 elif option == 4:
-                    break
+                    result = Book.amount_of_books_per_category()
+                    print('\namount\t|category\n','-'*20)
+                    for i in result:
+                        print(f'{i[0]}\t|{i[1]}')
+                    input('\nEnter to continue')
                 elif option == 5:
-                    pass
+                    result = Book.amount_of_books_per_read_status()
+                    print('\namount\t|readstatus\n','-'*20)
+                    for i in result:
+                        print(f'{i[0]}\t|{i[1]}')
+                    input('\nEnter to continue')
                 elif option == 99:
                     break
                 else:

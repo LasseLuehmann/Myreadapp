@@ -34,3 +34,18 @@ class Book:
         data = book_queries.list_title_by_format_and_reader_title(format_, title)
         result = [i[0] for i in data] 
         return result
+    
+    @staticmethod
+    def amount_of_books():
+        amount = book_queries.amount_of_books()
+        return amount
+    
+    @staticmethod
+    def amount_of_books_per_category():
+        amount = book_queries.amount_of_books_per_category()
+        return amount
+    
+    @staticmethod
+    def amount_of_books_per_read_status():
+        amount = book_queries.amount_of_books_per_read_status()
+        return amount

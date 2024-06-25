@@ -22,7 +22,7 @@ NB: Open a terminal from the db folder in the working directory
 ```sql
 -- Start psql shell from any database and superuser. Preferably postgres
 psql -U postgres
-
+f
 -- Create the database 
 CREATE DATABASE myreadapp;
 
