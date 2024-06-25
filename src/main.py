@@ -1,6 +1,8 @@
 from src.db.models.reader import Reader
 from src.db.models.book import Book
+from src.db.models.my_read import MyRead
 from typing import Optional
+from datetime import datetime
 
 class MenuDisplay:
     @staticmethod
@@ -56,6 +58,49 @@ class DataInput():
         }
     
     @staticmethod
+    def input_for_book_insert():
+        isbn = input('Enter the isbn: ')
+        title = input('Enter the title: ')
+        description = input('Enter a describtion: ')
+        page_count = int(input('Enter the page count: '))
+        category = input('Enter a category: ')
+        published_date = int(input('Enter the published year: '))
+        publisher = input('Enter the publisher: ')
+        authors = str({input('Enter the authors: ')})
+        lang = input('Enter the language: ')
+        edition = int(input('Enter the edition of the book: '))
+        format_ = input('Enter the format (ebook,hardcover): ')
+
+        return {
+            "isbn": isbn,
+            "title": title,
+            "description": description,
+            "page_count": page_count,
+            "category": category,
+            "published_date": published_date,
+            "publisher": publisher,
+            "authors": authors,
+            "lang": lang,
+            "edition": edition,
+            "format_": format_
+        }
+    
+    @staticmethod
+    def input_for_my_read_insert():
+        now = int(datetime.now().strftime('%Y'))
+        book_isbn = input('Enter the isbn of the book: ')
+        reader_username = input('Enter your username: ')
+        percentage_read = 1
+        start_read_date = now
+
+        return {
+            "book_isbn": book_isbn,
+            "reader_username": reader_username,
+            "percentage_read": percentage_read,
+            "start_read_date": start_read_date
+        }
+    
+    @staticmethod
     def input_for_DQ_option_one():
         format_ = input('Enter a format(ebook, hardcover): ')
         title = input('Enter title (Mr, Mrs, Dr): ')
@@ -88,10 +133,22 @@ def main():
                         print('Insertion failed')                   
                 elif option == 2:
                     # TODO: INSERT BOOK
-                    pass
+                    book_detail = DataInput.input_for_book_insert()
+                    book = Book.insert_data(**book_detail)
+
+                    if book:
+                        print(f'Book with title: {book.title} inserted successfully')
+                    else:
+                        print('Insertion failed')  
                 elif option == 3:
                     # TODO: INSERT MYREAD
-                    pass
+                    my_read_detail = DataInput.input_for_my_read_insert()
+                    my_read = MyRead.insert_data(**my_read_detail)
+
+                    if my_read:
+                        print(f'My read was successfully inserted')
+                    else:
+                        print('Insertio failed')
                 elif option == 99:
                     break
                 else:

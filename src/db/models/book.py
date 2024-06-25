@@ -29,6 +29,12 @@ class Book:
         self.edition = edition
         self.format = format_
 
+    @classmethod
+    def insert_data(cls,isbn,title,description,page_count,category,published_date,publisher,authors,lang,edition,format_):
+        book = book_queries.insert_data(isbn,title,description,page_count,category,published_date,publisher,authors,lang,edition,format_)
+
+        return cls(*book) if book else None
+
     @staticmethod
     def list_title_by_format_and_reader_title(format_: str, title: str):
         data = book_queries.list_title_by_format_and_reader_title(format_, title)

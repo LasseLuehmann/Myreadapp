@@ -1,5 +1,31 @@
 from src.db.database import Database
 
+def insert_data(isbn,title,description,page_count,category,published_date,publisher,authors,lang,edition,format_):
+    conn = Database()
+
+    query = """
+        INSERT INTO project.book(
+            isbn,
+            title,
+            description,
+            page_count,
+            category,
+            published_date,
+            publisher,
+            authors,
+            lang,
+            edition,
+            format
+        ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        RETURNING *;
+    """
+
+    with conn.cursor() as cursor:
+        cursor.execute(query, (isbn, title, description, page_count, category, published_date, publisher, authors, lang, edition, format_))
+        book = cursor.fetchone()
+        conn.commit()
+        return book
+
 def list_title_by_format_and_reader_title(format_: str, title: str):
     conn = Database()
 
@@ -58,3 +84,4 @@ def amount_of_books_per_read_status():
         cursor.execute(query)
         amount = cursor.fetchall()
         return amount
+    
